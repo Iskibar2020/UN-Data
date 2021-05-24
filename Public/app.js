@@ -6,31 +6,35 @@ console.log('this is');
     myConnector.getSchema = function (schemaCallback) {
         const covidCols = [
             {
-              id: "Date_of_report",
+              id: "publicationDate",
               dataType: tableau.dataTypeEnum.date,
             },
             {
-              id: "Municipality_code",
+              id: "type",
               dataType: tableau.dataTypeEnum.string,
             },
             {
-              id: "Municipality_name",
+              id: "freq",
               dataType: tableau.dataTypeEnum.string,
             },
             {
-              id: "Province",
+              id: "px",
               dataType: tableau.dataTypeEnum.string,
             },
             {
-              id: "Total_reported",
+              id: "r",
               dataType: tableau.dataTypeEnum.int,
             },
             {
-              id: "Hospital_admission",
+                id: "rDesc",
+                dataType: tableau.dataTypeEnum.string,
+            },
+            {
+              id: "ps",
               dataType: tableau.dataTypeEnum.int,
             },
             {
-              id: "Deceased",
+              id: "TotalRecords",
               dataType: tableau.dataTypeEnum.int,
             },
           ];
@@ -49,18 +53,19 @@ console.log('this is');
         var i = 0;
 
         $.getJSON(
-      "https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_cumulatief.json",
+      "https://comtrade.un.org/api//refs/da/view?parameters.json",
       function (resp) {
         // Iterate over the JSON object
         for (i = 0, len = resp.length; i < len; i++) {
           tableData.push({
-            Date_of_report: resp[i].Date_of_report,
-            Municipality_code: resp[i].Municipality_code,
-            Municipality_name: resp[i].Municipality_name,
-            Province: resp[i].Province,
-            Total_reported: resp[i].Total_reported,
-            Hospital_admission: resp[i].Hospital_admission,
-            Deceased: resp[i].Deceased,
+            publicationDate: resp[i].publicationDate,
+            type: resp[i].type,
+            freq: resp[i].freq,
+            px: resp[i].px,
+            r: resp[i].r,
+            rDesc: resp[i].rDesc,
+            ps: resp[i].ps,
+            TotalRecords: resp[i].TotalRecords,
           });
         }
         table.appendRows(tableData);
